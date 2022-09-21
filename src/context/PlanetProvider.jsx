@@ -6,6 +6,7 @@ import getPlanets from '../api/fetchPlanets';
 function PlanetProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const planetData = async () => {
@@ -19,7 +20,7 @@ function PlanetProvider({ children }) {
   }, []);
 
   return (
-    <PlanetContext.Provider value={ { planets, loading } }>
+    <PlanetContext.Provider value={ { planets, loading, name, setName } }>
       {children}
     </PlanetContext.Provider>
   );
