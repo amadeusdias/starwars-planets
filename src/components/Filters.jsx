@@ -14,7 +14,7 @@ function Filters() {
     comparison: 'maior que',
     value: 0,
   });
-  const [selecF, setSelecF] = useState(selectFilters);
+  const [selecF] = useState(selectFilters);
 
   function handleFilters() {
     setFilteredByNumericValues([...filteredByNumericValues, select]);
