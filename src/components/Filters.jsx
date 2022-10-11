@@ -14,7 +14,7 @@ function Filters() {
     comparison: 'maior que',
     value: 0,
   });
-  const [selecF] = useState(selectFilters);
+  const [selecF, setSelecF] = useState(selectFilters);
 
   function handleFilters() {
     setFilteredByNumericValues([...filteredByNumericValues, select]);
@@ -23,27 +23,18 @@ function Filters() {
     console.log(valor);
   }
 
-  //   const filterData = (linha) => {
-  //     const bool = [];
-  //     filteredByNumericValues.forEach((filt) => {
-  //       switch (filt.comparison) {
-  //       case 'maior que':
-  //         bool.push(Number(linha[filt.column]) > Number(filt.value));
-  //         break;
+  function handleExclusion(index) {
+    const cloneFilters = [...filteredByNumericValues];
+    cloneFilters.splice(index, 1);
+    setFilteredByNumericValues(cloneFilters);
+  }
 
-  //       case 'menor que':
-  //         bool.push(Number(linha[filt.column]) < Number(filt.value));
-  //         break;
+  function handleAllExclusions() {
+    setFilteredByNumericValues([]);
+  }
 
-  //       case 'igual':
-  //         bool.push(Number(linha[filt.column]) === Number(filt.value));
-  //         break;
-  //       default:
-  //         return true;
-  //       }
-  //     });
-  //     return bool.every(((el) => el));
-  //   };
+  const tratarOpcoes = (opcao) => !filteredByNumericValues
+    .find((filtro) => opcao === filtro.column);
 
   return (
     <div>
@@ -60,6 +51,7 @@ function Filters() {
         onChange={ (c) => setSelect({ ...select, column: c.target.value }) }
       >
         {selecF
+          .filter(tratarOpcoes)
           .map((item) => (<option value={ item } key={ item }>{item}</option>))}
       </select>
 
@@ -89,6 +81,38 @@ function Filters() {
         Filter
 
       </button>
+      <span>
+        {filteredByNumericValues.map((f, i) => (
+          <div
+            key={ i }
+            id={ `fil-${f.column}` }
+            data-testid="filter"
+          >
+            <button
+              type="button"
+              onClick={ ({ target }) => {
+                handleExclusion(target.parentElement.id.split('-')[1]);
+              } }
+            >
+              {`Excluir filtro ${f.column}`}
+
+            </button>
+            <p>
+              {f.column}
+              {f.comparison}
+              {f.value}
+            </p>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={ handleAllExclusions }
+          data-testid="button-remove-filters"
+        >
+          Excluir todos os filtros
+        </button>
+
+      </span>
     </div>
   );
 }

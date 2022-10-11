@@ -47,47 +47,6 @@ function PlanetTable() {
 
   return (
     <div>
-      {/* <input
-        onChange={ (n) => setName(n.target.value) }
-        type="text"
-        placeholder="Search Planet"
-        data-testid="name-filter"
-      />
-
-      <select
-      // renderizar esse select usando MAP, ja que ele vai ter que ser dinamico, tendo opções excluidas a medida que sao usadas.
-        data-testid="column-filter"
-        onChange={ (c) => setColumn(c.target.value) }
-        value={ column }
-      >
-        {selecF
-          .map((item) => (<option value={ item } key={ item }>{item}</option>))}
-      </select>
-
-      <select
-        data-testid="comparison-filter"
-        onChange={ (n) => setComparison(n.target.value) }
-        value={ comparison }
-      >
-        <option value="maior que">Maior que</option>
-        <option value="menor que">Menor que</option>
-        <option selected value="igual a">Igual a</option>
-      </select>
-      <input
-        type="number"
-        placeholder="number"
-        value={ value }
-        data-testid="value-filter"
-        onChange={ (v) => setValue(v.target.value) }
-      />
-      <button
-        type="button"
-        onClick={ handleFilters }
-        data-testid="button-filter"
-      >
-        Filter
-
-      </button> */}
       <table>
         <thead>
           <tr>
