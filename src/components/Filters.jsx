@@ -9,28 +9,33 @@ function Filters() {
     setFilteredByNumericValues,
     selectFilters,
   } = useContext(PlanetContext);
+  const [selectColunm, setSelectColunm] = useState(selectFilters);
   const [select, setSelect] = useState({
     column: 'population',
     comparison: 'maior que',
     value: 0,
   });
-  const [selecF] = useState(selectFilters);
 
   function handleFilters() {
     setFilteredByNumericValues([...filteredByNumericValues, select]);
+
+    // const test = filteredByNumericValues
+    //   .find((element) => element.column.includes(selectColunm));
+    // console.log(test);
+    console.log(selectColunm);
     console.log(select);
     console.log(filteredByNumericValues);
-    console.log(valor);
   }
 
-  function handleExclusion(index) {
-    const cloneFilters = [...filteredByNumericValues];
-    cloneFilters.splice(index, 1);
-    setFilteredByNumericValues(cloneFilters);
-  }
+  //   function handleExclusion(index) {
+  //     const cloneFilters = [...filteredByNumericValues];
+  //     cloneFilters.splice(index);
+  //     setFilteredByNumericValues(cloneFilters);
+  //   }
 
   function handleAllExclusions() {
     setFilteredByNumericValues([]);
+    setSelectColunm(selectFilters);
   }
 
   const tratarOpcoes = (opcao) => !filteredByNumericValues
@@ -48,15 +53,17 @@ function Filters() {
       <select
       // renderizar esse select usando MAP, ja que ele vai ter que ser dinamico, tendo opções excluidas a medida que sao usadas.
         data-testid="column-filter"
+        defaultValue={ selectColunm[0] }
         onChange={ (c) => setSelect({ ...select, column: c.target.value }) }
       >
-        {selecF
+        {selectColunm
           .filter(tratarOpcoes)
           .map((item) => (<option value={ item } key={ item }>{item}</option>))}
       </select>
 
       <select
         data-testid="comparison-filter"
+        value={ select.comparison }
         onChange={ (n) => setSelect({ ...select, comparison: n.target.value }) }
       >
         <option selected value="maior que">maior que</option>
@@ -85,13 +92,14 @@ function Filters() {
         {filteredByNumericValues.map((f, i) => (
           <div
             key={ i }
-            id={ `fil-${f.column}` }
             data-testid="filter"
           >
             <button
               type="button"
-              onClick={ ({ target }) => {
-                handleExclusion(target.parentElement.id.split('-')[1]);
+              onClick={ () => {
+                const cloneFilters = [...filteredByNumericValues];
+                cloneFilters.splice(i, 1);
+                setFilteredByNumericValues(cloneFilters);
               } }
             >
               {`Excluir filtro ${f.column}`}
