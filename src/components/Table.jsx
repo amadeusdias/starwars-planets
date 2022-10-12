@@ -24,11 +24,9 @@ function PlanetTable() {
         bool.push(Number(linha[filt.column]) < Number(filt.value));
         break;
 
-      case 'igual a':
+      default:
         bool.push(Number(linha[filt.column]) === Number(filt.value));
         break;
-      default:
-        return true;
       }
     });
     return bool.every(((el) => el));

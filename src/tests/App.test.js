@@ -141,11 +141,9 @@ describe('Testando a aplicação', () => {
     const filterButton = screen.getByTestId('button-filter')
     userEvent.click(filterButton)
 
-
     await waitFor(() => {
       const excludeButton = screen.getByTestId('filter');
       expect(excludeButton).toBeInTheDocument()
     })
-
   })
 })
