@@ -1,14 +1,14 @@
 import React from 'react';
-import { getByTestId, getByText, render, screen, act } from '@testing-library/react';
+import { getByTestId, getByText, render, screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import mockData from './mock-data'
 
 describe('Testando a aplicação', () => {
 
-  // beforeEach(() => global.fetch = jest.fn(async () => ({
-  //   json: async () => mockData,
-  // })));
+  beforeEach(() => global.fetch = jest.fn().mockResolvedValue({
+    json: jest.fn().mockResolvedValue(mockData)
+  }));
 
   it('Vefificando a existencia dos filtros', async () => {
     render(<App></App>);
@@ -27,5 +27,30 @@ describe('Testando a aplicação', () => {
     expect(valueInput).toBeInTheDocument()
     expect(filterButton).toBeInTheDocument()
     expect(excludeFiltersButton).toBeInTheDocument()
+  })
+
+  it('Verifica se a tabela é renderizada com todas as categorias', async () => {
+    render(<App />)
+    
+    await waitFor(() => {
+      const colunas = screen.getAllByRole('row');
+      expect(colunas).toHaveLength(11)
+    })
+
+  })
+
+  it('Verifica se é possivel filtrar por nome', async () => {
+    render(<App />)
+
+    const nameInput = screen.getByTestId('name-filter');
+    userEvent.type(nameInput, 'h' );
+
+    await waitFor(() => {
+      const planetHoth = screen.getByText(/Hoth/i);
+      const planetDagobah = screen.getByText(/Dagobah/i)
+      expect(planetHoth).toBeInTheDocument();
+      expect(planetDagobah).toBeInTheDocument()
+    })
+
   })
 })
