@@ -53,4 +53,99 @@ describe('Testando a aplicação', () => {
     })
 
   })
+  it('Testa os filtros numericos e a condição "igual a"', async () => {
+    render(<App />)
+
+    const columnInput = screen.getByTestId("column-filter");
+    const columnSelect = screen.getByRole('option', {name: /population/i})
+    userEvent.selectOptions(columnInput, columnSelect)
+
+    const comparisonInput = screen.getByTestId("comparison-filter");
+    const comparisonSelect = screen.getByRole('option', {name: /igual a/i})
+    userEvent.selectOptions(comparisonInput, comparisonSelect)
+
+    const valueInput = screen.getByTestId("value-filter")
+    userEvent.type(valueInput, '1000' )
+
+    const filterButton = screen.getByTestId('button-filter')
+    userEvent.click(filterButton)
+
+    await waitFor(() => {
+      const planetYarvin = screen.getByText(/Yavin IV/i)
+      expect(planetYarvin).toBeInTheDocument()
+    })
+  })
+
+  it('Testa os filtros numericos e a condição "maior que"', async () => {
+    render(<App />)
+
+    const columnInput = screen.getByTestId("column-filter");
+    const columnSelect = screen.getByRole('option', {name: /diameter/i})
+    userEvent.selectOptions(columnInput, columnSelect)
+
+    const comparisonInput = screen.getByTestId("comparison-filter");
+    const comparisonSelect = screen.getByRole('option', {name: /maior que/i})
+    userEvent.selectOptions(comparisonInput, comparisonSelect)
+
+    const valueInput = screen.getByTestId("value-filter")
+    userEvent.type(valueInput, '19000' )
+
+    const filterButton = screen.getByTestId('button-filter')
+    userEvent.click(filterButton)
+
+    await waitFor(() => {
+      const planetBespin = screen.getByText(/Bespin/i)
+      const planetKamino = screen.getByText(/Kamino/i)
+      expect(planetBespin).toBeInTheDocument()
+      expect(planetKamino).toBeInTheDocument()
+    })
+  })
+
+  it('Testa os filtros numericos e a condição "menor que"', async () => {
+    render(<App />)
+
+    const columnInput = screen.getByTestId("column-filter");
+    const columnSelect = screen.getByRole('option', {name: /orbital_period/i})
+    userEvent.selectOptions(columnInput, columnSelect)
+
+    const comparisonInput = screen.getByTestId("comparison-filter");
+    const comparisonSelect = screen.getByRole('option', {name: /menor que/i})
+    userEvent.selectOptions(comparisonInput, comparisonSelect)
+
+    const valueInput = screen.getByTestId("value-filter")
+    userEvent.type(valueInput, '305' )
+
+    const filterButton = screen.getByTestId('button-filter')
+    userEvent.click(filterButton)
+
+    await waitFor(() => {
+      const planetTatooine = screen.getByText(/Tatooine/i)
+      expect(planetTatooine).toBeInTheDocument()
+    })
+  })
+
+  it("Testa se o botão de excluir filtros aparece", async () => {
+    render(<App />)
+
+    const columnInput = screen.getByTestId("column-filter");
+    const columnSelect = screen.getByRole('option', {name: /orbital_period/i})
+    userEvent.selectOptions(columnInput, columnSelect)
+
+    const comparisonInput = screen.getByTestId("comparison-filter");
+    const comparisonSelect = screen.getByRole('option', {name: /menor que/i})
+    userEvent.selectOptions(comparisonInput, comparisonSelect)
+
+    const valueInput = screen.getByTestId("value-filter")
+    userEvent.type(valueInput, '305' )
+
+    const filterButton = screen.getByTestId('button-filter')
+    userEvent.click(filterButton)
+
+
+    await waitFor(() => {
+      const excludeButton = screen.getByTestId('filter');
+      expect(excludeButton).toBeInTheDocument()
+    })
+
+  })
 })
