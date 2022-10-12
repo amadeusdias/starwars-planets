@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import PlanetContext from '../context/PlanetsContext';
 
 function Filters() {
-  const [valor, setValor] = useState(0);
+  // const [valor, setValor] = useState(0);
   const {
     setName,
     filteredByNumericValues,
@@ -18,6 +18,11 @@ function Filters() {
 
   function handleFilters() {
     setFilteredByNumericValues([...filteredByNumericValues, select]);
+    setSelect({
+      column: 'population',
+      comparison: 'maior que',
+      value: 0,
+    });
 
     // const test = filteredByNumericValues
     //   .find((element) => element.column.includes(selectColunm));
@@ -32,6 +37,10 @@ function Filters() {
   //     cloneFilters.splice(index);
   //     setFilteredByNumericValues(cloneFilters);
   //   }
+
+  const handleChangeNumericFilters = ({ target: { name, value } }) => {
+    setSelect({ ...select, [name]: value });
+  };
 
   function handleAllExclusions() {
     setFilteredByNumericValues([]);
@@ -53,8 +62,9 @@ function Filters() {
       <select
       // renderizar esse select usando MAP, ja que ele vai ter que ser dinamico, tendo opções excluidas a medida que sao usadas.
         data-testid="column-filter"
-        defaultValue={ selectColunm[0] }
-        onChange={ (c) => setSelect({ ...select, column: c.target.value }) }
+        name="column"
+        defaultValue={ select.column }
+        onChange={ handleChangeNumericFilters }
       >
         {selectColunm
           .filter(tratarOpcoes)
@@ -63,22 +73,20 @@ function Filters() {
 
       <select
         data-testid="comparison-filter"
+        name="comparison"
         value={ select.comparison }
-        onChange={ (n) => setSelect({ ...select, comparison: n.target.value }) }
+        onChange={ handleChangeNumericFilters }
       >
-        <option selected value="maior que">maior que</option>
+        <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
         <option value="igual a">igual a</option>
       </select>
       <input
         type="number"
+        name="value"
         data-testid="value-filter"
-        // onChange={ (v) => setSelect({ ...select, value: v.target.value }) }
-        value={ valor }
-        onChange={ (v) => {
-          setValor(v.target.value);
-          setSelect({ ...select, value: v.target.value });
-        } }
+        value={ select.value }
+        onChange={ handleChangeNumericFilters }
       />
       <button
         type="button"
