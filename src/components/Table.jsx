@@ -4,20 +4,9 @@ import PlanetContext from '../context/PlanetsContext';
 function PlanetTable() {
   const {
     planets,
-    // setName,
     name,
-    // column, setColumn,
-    // comparison, setComparison,
-    // value, setValue,
     filteredByNumericValues,
-    // setFilteredByNumericValues,
-    // selectFilters,
   } = useContext(PlanetContext);
-  // const [filtros, setFiltros] = ([]);
-  // const [selecF, setSelecF] = useState(selectFilters);
-  // const [doit, setDoit] = useState(false);
-
-  // const render = doit ? filtros : planets;
 
   function nameFilter(data) {
     return data.filter((p) => p.name.toLowerCase().includes(name));

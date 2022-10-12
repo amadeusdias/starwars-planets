@@ -23,20 +23,7 @@ function Filters() {
       comparison: 'maior que',
       value: 0,
     });
-
-    // const test = filteredByNumericValues
-    //   .find((element) => element.column.includes(selectColunm));
-    // console.log(test);
-    console.log(selectColunm);
-    console.log(select);
-    console.log(filteredByNumericValues);
   }
-
-  //   function handleExclusion(index) {
-  //     const cloneFilters = [...filteredByNumericValues];
-  //     cloneFilters.splice(index);
-  //     setFilteredByNumericValues(cloneFilters);
-  //   }
 
   const handleChangeNumericFilters = ({ target: { name, value } }) => {
     setSelect({ ...select, [name]: value });
