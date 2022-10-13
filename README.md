@@ -1,16 +1,6 @@
-# 🚧 README em construção 🚧
+# StarWars Filter Project
+Projeto realizado utilizando React, Context API e React Hooks. Foram desenvolvidos testes unitários utilizando RTL e Jest. 
 
-<!-- Olá, Tryber!
+O projeto consiste em uma tabela de planetas do universo de StarWars. Essa tabela pode ser filtrada de algumas formas diferentes. 
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
-
-É essencial que você preencha esse documento por conta própria, ok?
-
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
-
--->
+> Em breve o projeto vai receber CSS e será realizado o deploy.
